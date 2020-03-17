@@ -6,10 +6,11 @@ import requests
 import os
 import time
 from pyquery import PyQuery as pq
-
+year = datetime.date.today().strftime('%Y')
 
 def git_add_commit_push(date, filename):
-    cmd_git_add = 'git add 2020/{filename}'.format(filename=filename)
+    #year = datetime.date.today().strftime('%Y')
+    cmd_git_add = 'git add {year}/{filename}'.format(year=year,filename=filename)
     cmd_git_commit = 'git commit -m "{date}"'.format(date=date)
     cmd_git_push = 'git push -u origin master'
 
@@ -19,7 +20,8 @@ def git_add_commit_push(date, filename):
 
 
 def createMarkdown(date, filename):
-    filepath = '2020'+os.sep +filename
+    
+    filepath = year + os.sep + filename
     with open(filepath, 'w') as f:
         f.write("## " + date + "\n")
 
@@ -45,7 +47,9 @@ def scrape(language, filename):
     print(len(items))
 
     # codecs to solve the problem utf-8 codec like chinese
-    filepath = '2020'+os.sep +filename
+    
+    filepath  = year + os.sep + filename
+   # trdate = datetime.datetime.now().strftime('%Y-%m-%d')
     with codecs.open(filepath, "a", "utf-8") as f:
         f.write('\n#### {language}\n'.format(language=language))
 
